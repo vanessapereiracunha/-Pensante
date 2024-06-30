@@ -1,0 +1,11 @@
+# Escolhe a imagem Docker oficial do Nginx que servirá de base
+FROM nginx:alpine
+
+# Copia os arquivos estáticos do diretório 'dist' para o diretório de arquivos do Nginx
+COPY ./teste/ /usr/share/nginx/html/
+
+# Define a porta em que o servidor Nginx estará escutando
+EXPOSE 80
+
+# Inicia o servidor Nginx em primeiro plano por padrão quando o container é executado
+CMD ["nginx", "-g", "daemon off;"]
