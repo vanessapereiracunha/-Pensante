@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Questionário</title>
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            background-image: url(fundo.png); /* Azul vívido */
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #fff; /* Texto branco */
+            margin: 20px;
+        }
+        form {
+            background-color: #f9f9f9; /* Fundo claro */
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type=text], input[type=file] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #f39c12; /* Laranja */
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive; /* Fonte de estilo de jogo */
+        }
+        button {
+            background-color: #27ae60; /* Verde */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Press Start 2P', cursive; /* Fonte de estilo de jogo */
+        }
+        button:hover {
+            background-color: #1b9842; /* Verde mais escuro */
+        }
+        .question {
+            text-align: left;
+            margin-bottom: 20px;
+            color: #0f0e0e; /* Texto branco */
+        }
+        .options-container p {
+            margin-left: 10px;
+            color: #110f0f; /* Texto branco */
+        }
+        .options-container input[type="text"] {
+            display: block;
+            margin-bottom: 5px;
+        }
+        hr {
+            margin-top: 30px;
+            border-color: #f39c12; /* Laranja */
+        }
+        .back-button {
+            background-color: #c0392b; /* Vermelho */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Press Start 2P', cursive; /* Fonte de estilo de jogo */
+        }
+        .back-button:hover {
+            background-color: #a82f22; /* Vermelho mais escuro */
+        }
+        .message {
+            display: none; /* Inicialmente escondido */
+            margin: 20px auto;
+            padding: 10px;
+            max-width: 600px;
+            border-radius: 5px;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .message.success {
+            background-color: #27ae60; /* Verde */
+            color: #fff;
+        }
+        .message.error {
+            background-color: #c0392b; /* Vermelho */
+            color: #fff;
+        }
+    </style>
+    <!-- Incluir o link da fonte Press Start 2P -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Criar Novo Questionário</h1>
+    <form id="create-quiz-form">
+        <input type="text" id="quiz-title" placeholder="Título do Questionário" required>
+        
+        <div id="questions-container">
+            <!-- Os campos de perguntas adicionadas dinamicamente aparecerão aqui -->
+        </div>
+        
+        <button type="button" id="add-question-button">Adicionar Pergunta</button><br>
+        <button class="back-button" onclick="window.location.href='menu_professor.html'">Voltar</button>
+        <button type="submit">Criar Questionário</button>
+        <div id="success-message" class="message success">Questionário foi criado com sucesso!</div>
+        <div id="error-message" class="message error">Houve um erro ao criar o questionário.</div>
+    
+    </form>
+
+    <!-- Mensagens de sucesso e erro -->
+   
+    <!-- Script para adicionar perguntas dinamicamente -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parse/2.18.0/parse.min.js"></script>
+    <script>
+        Parse.initialize("uICi8xqYEQ7dpHbf2rGjuKjMnyYnFLTJBCHg056J", "jqu44b1D0lMX47pRUz72PC3HL8CovkAja8kW2QxP");
+        Parse.serverURL = 'https://parseapi.back4app.com/';
+
+        document.getElementById('add-question-button').addEventListener('click', function() {
+            const questionsContainer = document.getElementById('questions-container');
+            const questionIndex = document.querySelectorAll('.question').length + 1;
+            
+            // Cria o contêiner da pergunta com alternativas e um campo de upload de imagem
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <label for="question-text-${questionIndex}">Pergunta ${questionIndex}:</label>
+                <input type="text" id="question-text-${questionIndex}" name="question-text-${questionIndex}" placeholder="Digite a pergunta" required>
+
+                <div class="options-container">
+                    <p>Alternativas:</p>
+                    <input type="text" name="question-${questionIndex}-option-1" placeholder="Alternativa 1" required>
+                    <input type="text" name="question-${questionIndex}-option-2" placeholder="Alternativa 2" required>
+                    <input type="text" name="question-${questionIndex}-option-3" placeholder="Alternativa 3">
+                    <input type="text" name="question-${questionIndex}-option-4" placeholder="Alternativa 4">
+                </div>
+                
+                <label for="question-image-${questionIndex}">Imagem (opcional):</label>
+                <input type="file" id="question-image-${questionIndex}" name="question-image-${questionIndex}" accept="image/*">
+                
+                <label for="question-correct-${questionIndex}">Resposta Correta:</label>
+                <select id="question-correct-${questionIndex}" name="question-correct-${questionIndex}" required>
+                    <option value="">Selecione a resposta correta</option>
+                    <option value="1">Alternativa 1</option>
+                    <option value="2">Alternativa 2</option>
+                    <option value="3">Alternativa 3</option>
+                    <option value="4">Alternativa 4</option>
+                </select>
+                <hr>`;
+            
+            questionsContainer.appendChild(questionDiv);
+        });
+
+        document.getElementById('create-quiz-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const titleValue = document.getElementById('quiz-title').value;
+            const Questionario = Parse.Object.extend('Questionario');
+            const newQuestionario = new Questionario();
+            newQuestionario.set('titulo', titleValue);
+
+            newQuestionario.save().then(function(questionario) {
+                const questionElements = document.querySelectorAll('.question');
+
+                const questionSavePromises = Array.from(questionElements).map(function(questionDiv) {
+                    const Pergunta = Parse.Object.extend('Pergunta');
+                    const pergunta = new Pergunta();
+                    pergunta.set('texto', questionDiv.querySelector('input[type="text"]').value);
+                    pergunta.set('questionario', questionario);
+                    const options = questionDiv.querySelectorAll('.options-container input[type="text"]');
+                    pergunta.set('opcoes', Array.from(options).map(o => o.value.trim()).filter(o => o));
+
+                    const imageInput = questionDiv.querySelector('input[type="file"]');
+                    if (imageInput && imageInput.files.length > 0) {
+                        const imageFile = new Parse.File("image.jpg", imageInput.files[0]);
+                        return imageFile.save().then(function(savedFile) {
+                            pergunta.set('imagem', savedFile);
+                            return pergunta.save();
+                        });
+                    } else {
+                        return pergunta.save();
+                    }
+                });
+
+                return Promise.all(questionSavePromises);
+            }).then(function() {
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('error-message').style.display = 'none';
+            }, function(error) {
+                document.getElementById('success-message').style.display = 'none';
+                document.getElementById('error-message').style.display = 'block';
+                console.error('Erro ao salvar o questionário: ', error);
+            });
+        });
+    </script>
+</body>
+</html>
