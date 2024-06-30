@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultado do Questionário</title>
+  <!-- Adicione seu CSS aqui -->
+</head>
+<body>
+  <h1>Resultado do Questionário</h1>
+  <div id="resultado">
+    <!-- A nota será exibida aqui -->
+  </div>
+
+  <script>
+    // Pega a nota da string de consulta (query string)
+    const params = new URLSearchParams(window.location.search);
+    const nota = params.get('nota');
+
+    const resultadoDiv = document.getElementById('resultado');
+    if (nota !== null) {
+      // Se existir um parâmetro de nota, exibe-o no elemento resultado
+      resultadoDiv.innerText = `Sua nota final é: ${nota}%`;
+    } else {
+      // Se não existir parâmetro de nota, mostra uma mensagem padrão
+      resultadoDiv.innerText = 'Nota não disponível.';
+    }
+  </script>
+</body>
+</html>
