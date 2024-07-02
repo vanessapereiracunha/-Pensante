@@ -9,7 +9,7 @@ document.getElementById('signup-button').addEventListener('click', function() {
     const password = document.getElementById('signup-password').value;
     const userType = document.getElementById('signup-userType').value; // Corrigindo ID e adicionando a variável aqui
     const email = document.getElementById('signup-email').value; // Corrigindo ID e adicionando a variável aqui
-    signUp(username, password, userType); // Passando userType como um parâmetro para a função signUp
+    signUp(username, password, userType, email); // Passando userType como um parâmetro para a função signUp
 });
 
 // Alteração dos parâmetros da função signUp para incluir userType
