@@ -9,7 +9,14 @@ document.getElementById('signup-button').addEventListener('click', async functio
     const email = document.getElementById('signup-email').value;
 
     try {
-        await Parse.User.logOut();
+        // Verifica se há um usuário logado e faz logout
+        const currentUser = Parse.User.current();
+        if (currentUser) {
+            console.log('Usuário logado encontrado. Fazendo logout...');
+            await Parse.User.logOut();
+        }
+        
+        // Realiza o cadastro do novo usuário
         signUp(username, password, userType, email);
     } catch (error) {
         console.error('Error while logging out user', error);
@@ -30,9 +37,9 @@ function signUp(username, password, userType, email) {
         document.getElementById('success-message').style.display = 'block';
         document.getElementById('error-message').style.display = 'none';
         // Redirecionar para a página correspondente após um cadastro bem-sucedido
-        if(user.get("type") === "professor") {
+        if (user.get("type") === "professor") {
             window.location.href = 'menu_professor.html';
-        } else if(user.get("type") === "aluno") {
+        } else if (user.get("type") === "aluno") {
             window.location.href = 'menu_aluno.html';
         }
     }).catch(function(error) {
