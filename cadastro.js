@@ -34,8 +34,15 @@ function signUp(username, password, userType, email) {
 
     user.signUp().then(function(user) {
         console.log('User signed up', user);
-        document.getElementById('success-message').style.display = 'block';
-        document.getElementById('error-message').style.display = 'none';
+
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        if (successMessage && errorMessage) {
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+        }
+
         // Redirecionar para a página correspondente após um cadastro bem-sucedido
         if (user.get("type") === "professor") {
             window.location.href = 'menu_professor.html';
@@ -44,8 +51,15 @@ function signUp(username, password, userType, email) {
         }
     }).catch(function(error) {
         console.error('Error while signing up user', error);
-        document.getElementById('success-message').style.display = 'none';
-        document.getElementById('error-message').style.display = 'block';
+
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        if (successMessage && errorMessage) {
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'block';
+        }
+
         alert('Erro ao registrar: ' + error.message);
     });
 }
