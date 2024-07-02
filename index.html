@@ -22,11 +22,11 @@
 
     /* Estilos do logotipo */
     .logo {
-      font-size: 48px;
+      font-size: 6vw; /* Tamanho do logotipo responsivo */
       font-weight: bold;
       color: #333;
       text-transform: uppercase;
-      letter-spacing: 8px;
+      letter-spacing: 1vw; /* Espaçamento entre letras responsivo */
       display: flex;
       align-items: center;
       position: relative; /* Para posicionar o nome */
@@ -34,21 +34,22 @@
 
     /* Estilos da imagem */
     .pi-img {
-      width: 60px; /* Largura da imagem */
+      width: 10vw; /* Largura da imagem responsiva */
       height: auto; /* Altura automática */
     }
 
     /* Estilos do nome */
     .nome {
-      margin-left: 10px; /* Adiciona um espaço entre a imagem e o nome */
-      animation: slideIn 1s forwards; /* Adiciona uma animação de entrada */
+      margin-left: 1vw; /* Espaço entre a imagem e o nome responsivo */
+      animation: slideIn 1s forwards; /* Animação de entrada */
+      font-size: 3vw; /* Tamanho da fonte responsivo */
     }
 
     /* Animação do nome */
     @keyframes slideIn {
       0% {
         opacity: 0;
-        transform: translateY(-50px);
+        transform: translateY(-5vw);
       }
       100% {
         opacity: 1;
@@ -58,10 +59,10 @@
 
     /* Estilos do botão */
     .botao {
-      margin-top: 20px; /* Adiciona um espaço acima do botão */
-      width: 150px; /* Largura do botão */
+      margin-top: 2vh; /* Espaço acima do botão responsivo */
+      width: 20vw; /* Largura do botão responsiva */
       background-color: #007bff; /* Cor de fundo azul */
-      padding: 10px; /* Espaçamento interno */
+      padding: 2vh; /* Espaçamento interno responsivo */
       border: none; /* Remove a borda */
       border-radius: 20%; /* Borda arredondada */
       cursor: pointer; /* Cursor de mão ao passar sobre */
@@ -75,7 +76,7 @@
 
     /* Estilos da seta */
     .seta {
-      width: 24px; /* Largura da seta */
+      width: 3vw; /* Tamanho da seta responsivo */
       height: auto; /* Altura automática */
       line-height: 0; /* Alinhamento da linha */
       color: white; /* Cor da seta */
@@ -88,10 +89,10 @@
         transform: translateY(0); /* Salto para cima */
       }
       40% {
-        transform: translateY(-10px); /* Salto para baixo */
+        transform: translateY(-1vh); /* Salto para baixo */
       }
       60% {
-        transform: translateY(-5px); /* Salto para baixo */
+        transform: translateY(-0.5vh); /* Salto para baixo */
       }
     }
 
@@ -120,6 +121,32 @@
         background-position: 0% 50%;
       }
     }
+
+    /* Media queries para ajustes em dispositivos menores */
+    @media screen and (max-width: 600px) {
+      .logo {
+        font-size: 10vw; /* Reduz o tamanho do logotipo em telas menores */
+        letter-spacing: 3vw; /* Reduz o espaçamento entre letras em telas menores */
+      }
+
+      .pi-img {
+        width: 20vw; /* Ajusta a largura da imagem em telas menores */
+      }
+
+      .nome {
+        margin-left: 2vw; /* Ajusta o espaço entre a imagem e o nome em telas menores */
+        font-size: 5vw; /* Reduz o tamanho da fonte em telas menores */
+      }
+
+      .botao {
+        width: 50vw; /* Ajusta a largura do botão em telas menores */
+        padding: 5vw; /* Ajusta o espaçamento interno do botão em telas menores */
+      }
+
+      .seta {
+        width: 10vw; /* Ajusta o tamanho da seta em telas menores */
+      }
+    }
   </style>
 </head>
 <body>
@@ -134,7 +161,7 @@
   <script>
     // Função para redirecionar para outra página
     function irParaOutraPagina() {
-      window.location.href = "cadastro.html"; // Substitua "outra_pagina.html" pelo URL da sua outra página
+      window.location.href = "inicio.html"; // Substitua "outra_pagina.html" pelo URL da sua outra página
     }
   </script>
 </body>

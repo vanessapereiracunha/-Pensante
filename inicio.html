@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frases Animadas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="frase" id="frase"></div>
+    <div class="botoes">
+      <button onclick="window.location.href='cadastro.html'">Cadastro</button>
+      <button onclick="window.location.href='login.html'">Login</button>
+    </div>
+  </div>
+
+  <script >
+    document.addEventListener('DOMContentLoaded', function() {
+  const fraseElement = document.getElementById('frase');
+  const frase = '"A Matemática é o alfabeto com o qual Deus escreveu o Universo."Galileu Galilei.';
+  let index = 0;
+
+  function mostrarLetra() {
+    if (index < frase.length) {
+      fraseElement.textContent += frase[index];
+      index++;
+      setTimeout(mostrarLetra, 100); // Velocidade de exibição (100ms)
+    }
+  }
+
+  mostrarLetra();
+});
+
+  </script>
+</body>
+</html>
