@@ -29,37 +29,20 @@ function signUp(username, password, userType, email) {
     var user = new Parse.User();
     user.set("username", username);
     user.set("password", password);
-    user.set("type", userType);
-    user.set("email", email);
+    user.set("type", userType); // Definindo a propriedade "type" do usuário, nome do campo ajustado de "usertype" para "type"
+    user.set("email", email); // Definindo a propriedade "type" do usuário, nome do campo ajustado de "usertype" para "type"
 
+    // Movendo o redirecionamento para dentro do .then, após sucesso no cadastro
     user.signUp().then(function(user) {
         console.log('User signed up', user);
-
-        const successMessage = document.getElementById('success-message');
-        const errorMessage = document.getElementById('error-message');
-
-        if (successMessage && errorMessage) {
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
-        }
-
         // Redirecionar para a página correspondente após um cadastro bem-sucedido
-        if (user.get("type") === "professor") {
-            window.location.href = 'menu_professor.html';
-        } else if (user.get("type") === "aluno") {
-            window.location.href = 'menu_aluno.html';
+        if(user.get("type") === "professor") {
+            window.location.href = 'menu_professor.html'; // Modifique conforme necessário
+        } else if(user.get("type") === "aluno") {
+            window.location.href = 'menu_aluno.html'; // Modifique conforme necessário
         }
     }).catch(function(error) {
         console.error('Error while signing up user', error);
-
-        const successMessage = document.getElementById('success-message');
-        const errorMessage = document.getElementById('error-message');
-
-        if (successMessage && errorMessage) {
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'block';
-        }
-
         alert('Erro ao registrar: ' + error.message);
     });
 }
